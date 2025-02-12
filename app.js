@@ -1,6 +1,6 @@
 // TODO: 1 - Generate 4 digit Pin - done
 // TODO: 2 - Make the keypad functional - done
-// TODO: 3 - Make SUBMIT Btn & notification work
+// TODO: 3 - Make SUBMIT Btn & notification work -done
 // TODO: 4 - Make try out functional - done
 // TODO: 5 - "<" onClick - remove single digit & "C" Clear whole input -done
 // TODO: 6 - if try = 0 then all the button will be disable (generate)
@@ -12,6 +12,7 @@ const keypadValue = document.querySelector(".show-value");
 const wrongPin = document.querySelector(".wrong-pin");
 const correctPin = document.querySelector(".correct-pin");
 const submitBtn = document.querySelector(".submit-btn");
+const tryLeft = document.getElementById("tryLeft");
 
 //Hide notification
 hidenotification();
@@ -56,13 +57,27 @@ function hidenotification() {
 function checkPin() {
   hidenotification();
   if (generatedPinInput.value === keypadValue.value) {
-    console.log("matched");
     correctPin.style.display = "block";
     submitBtn.style.backgroundColor = "green";
+    submitBtn.disabled = true;
+    generatePinBtn.disabled = true;
+    generatePinBtn.style.backgroundColor = "green";
   } else {
-    console.log("wrong pin");
     wrongPin.style.display = "block";
     submitBtn.style.backgroundColor = "red";
+    handleTryLeft();
+  }
+}
+
+function handleTryLeft() {
+  let value = parseInt(tryLeft.innerText);
+  console.log(value);
+  if (0 < value) {
+    tryLeft.innerText = value - 1;
+  } else {
+    alert("You have 0 try left! Please try again!");
+    submitBtn.disabled = true;
+    generatePinBtn.style.backgroundColor = "red";
   }
 }
 
