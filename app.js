@@ -8,6 +8,7 @@
 //selectors
 const generatePinBtn = document.querySelector(".generate-btn");
 const generatedPinInput = document.querySelector(".generated-pin");
+const keypadValue = document.querySelector(".show-value");
 
 //Generate 4 digit PIN
 function generatePin() {
@@ -16,3 +17,15 @@ function generatePin() {
 }
 
 generatePinBtn.addEventListener("click", generatePin);
+
+//Generate value from keypad
+function keypad(number = 10) {
+  if (generatedPinInput.value == "") {
+    alert("Generate a pin first! 😡");
+  } else {
+    keypadValue.value += number;
+  }
+  if (number == "C") {
+    keypadValue.value = "";
+  }
+}
