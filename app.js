@@ -1,14 +1,20 @@
 // TODO: 1 - Generate 4 digit Pin - done
-// TODO: 2 - Make the keypad functional
+// TODO: 2 - Make the keypad functional - done
 // TODO: 3 - Make SUBMIT Btn & notification work
-// TODO: 4 - Make try out functional
-// TODO: 5 - "<" onClick - remove single digit & "C" Clear whole input
+// TODO: 4 - Make try out functional - done
+// TODO: 5 - "<" onClick - remove single digit & "C" Clear whole input -done
 // TODO: 6 - if try = 0 then all the button will be disable (generate)
 
 //selectors
 const generatePinBtn = document.querySelector(".generate-btn");
 const generatedPinInput = document.querySelector(".generated-pin");
 const keypadValue = document.querySelector(".show-value");
+const wrongPin = document.querySelector(".wrong-pin");
+const correctPin = document.querySelector(".correct-pin");
+const submitBtn = document.querySelector(".submit-btn");
+
+//Hide notification
+hidenotification();
 
 //Generate 4 digit PIN
 function generatePin() {
@@ -29,3 +35,35 @@ function keypad(number = 10) {
     keypadValue.value = "";
   }
 }
+
+//Remove a single digit from the keypad
+function removeSingleDigit() {
+  let currentValue = keypadValue.value;
+  if (generatedPinInput.value == "") {
+    alert("Generate a pin first! 😡");
+  }
+  if (currentValue === "") {
+    alert("Nothing to remove");
+  }
+  keypadValue.value = currentValue.slice(0, -1);
+}
+
+function hidenotification() {
+  correctPin.style.display = "none";
+  wrongPin.style.display = "none";
+}
+
+function checkPin() {
+  hidenotification();
+  if (generatedPinInput.value === keypadValue.value) {
+    console.log("matched");
+    correctPin.style.display = "block";
+    submitBtn.style.backgroundColor = "green";
+  } else {
+    console.log("wrong pin");
+    wrongPin.style.display = "block";
+    submitBtn.style.backgroundColor = "red";
+  }
+}
+
+submitBtn.addEventListener("click", checkPin);
